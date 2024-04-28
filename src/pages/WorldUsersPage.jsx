@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import './world-users-page.css';
 
 const WorldUsersPage = () => {
   const { worldId } = useParams();
