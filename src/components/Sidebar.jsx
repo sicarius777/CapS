@@ -4,40 +4,44 @@ import React, { useState } from 'react';
 import './Sidebar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 import NotePopup from './NotePopup'; // Import NotePopup component
+import { Link } from 'react-router-dom';
+
+
+
+
 
 const Sidebar = ({ worlds, onSelectWorld }) => {
-  const [worldName, setWorldName] = useState(''); // State to store the world name
-  const [editing, setEditing] = useState(true); // State to track whether the name is being edited
-  const [showNotePopup, setShowNotePopup] = useState(false); // State to control the visibility of the note popup
-  const [note, setNote] = useState(''); // State to store the note
+  const [worldName, setWorldName] = useState('');
+  const [editing, setEditing] = useState(true);
+  const [showNotePopup, setShowNotePopup] = useState(false);
+  const [notes, setNotes] = useState([]); // Define notes state
 
   const handleWorldNameChange = (event) => {
-    setWorldName(event.target.value); // Update the world name state when input changes
+    setWorldName(event.target.value);
   };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Prevent default form submission behavior
-      setEditing(false); // Set editing to false to stop displaying the input field
+      event.preventDefault();
+      setEditing(false);
     }
   };
 
   const handleButtonClick = (itemName) => {
-    console.log(`Button clicked: ${itemName}`); // Perform action when button is clicked
+    console.log(`Button clicked: ${itemName}`);
     if (itemName === 'Note') {
-      // Set showNotePopup to true to open the note popup
       setShowNotePopup(true);
     }
   };
 
-  const handleAddNote = (newNote) => {
-    setNote(newNote); // Update the note state
-    setShowNotePopup(false); // Close the note popup
+  const handleSaveButtonClick = () => {
+    console.log('Save button clicked');
+    // Add logic to save data or perform any other action here
   };
 
-  const handleSaveButtonClick = () => {
-    console.log('Save button clicked'); // Perform action when save button is clicked
-    // Add logic to save data or perform any other action here
+  const handleAddNote = (newNote) => {
+    setNotes([...notes, newNote]); // Update notes state with the new note
+    setShowNotePopup(false);
   };
 
   return (
@@ -68,9 +72,9 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
         </li>
         {/* Map button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Map')}>
-            <i className="bi bi-map"></i> Map
-          </button>
+          <Link to="/maps" className="btn">
+          <i className="bi bi-map"></i> Map
+          </Link>
         </li>
         {/* Inspiration button */}
         <li className="nav-link">
@@ -135,11 +139,15 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
       </ul>
       {/* Render the NotePopup component conditionally based on showNotePopup state */}
       {showNotePopup && <NotePopup onClose={() => setShowNotePopup(false)} onAddNote={handleAddNote} />}
-      {/* Display the note in its own box */}
-      {note && (
+      {/* Display the notes in their own box */}
+      {notes.length > 0 && (
         <div className="note-box">
-          <h3>Note:</h3>
-          <p>{note}</p>
+          <h3>Notes:</h3>
+          <ul>
+            {notes.map((note, index) => (
+              <li key={index}>{note}</li>
+            ))}
+          </ul>
         </div>
       )}
       {/* Rest of the sidebar content */}

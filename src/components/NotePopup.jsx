@@ -1,5 +1,3 @@
-// NotePopup.jsx
-
 import React, { useState } from 'react';
 import './NotePopup.css';
 
@@ -10,7 +8,7 @@ const NotePopup = ({ onClose, onAddNote }) => {
     setNote(event.target.value);
   };
 
-  const handleAddNote = () => {
+  const handleAddButtonClick = () => {
     if (note.trim() !== '') {
       onAddNote(note.trim());
       onClose();
@@ -28,7 +26,7 @@ const NotePopup = ({ onClose, onAddNote }) => {
           placeholder="Enter your note here..."
         />
         <div className="button-container">
-          <button className="add-button" onClick={handleAddNote}>Add Note</button>
+          <button className="add-button" onClick={handleAddButtonClick}>Add Note</button>
           <button className="cancel-button" onClick={onClose}>Cancel</button>
         </div>
       </div>
