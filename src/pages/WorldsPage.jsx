@@ -1,3 +1,4 @@
+// WorldsPage.jsx
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from '../components/Nav'; // Import Navbar component
@@ -10,12 +11,11 @@ const WorldsPage = ({ onAddWorld, onSelectWorld, worlds }) => {
       <Navbar onAddWorld={onAddWorld} /> {/* Pass onAddWorld function as prop */}
       <div className="worlds-page-content">
         <Sidebar worlds={worlds} onSelectWorld={onSelectWorld} /> {/* Pass onSelectWorld as prop */}
-        <Container className="main-content">
-          {/* Content of the main section */}
-        </Container>
+        {/* Content of the main section */}
       </div>
     </Container>
   );
 };
 
 export default WorldsPage;
+
