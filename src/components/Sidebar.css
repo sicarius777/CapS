@@ -1,7 +1,7 @@
 /* sidebar.css */
 
 .sidebar {
-    width: 700px; /* Adjust the width as needed */
+    width: 250px; /* Adjust the width as needed */
     height: 100%; /* Ensure sidebar takes full height */
     background-color: #ff9100; /* Change background color as desired */
     padding: 20px; /* Add padding to create space between content and edges */

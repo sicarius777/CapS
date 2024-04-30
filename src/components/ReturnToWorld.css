@@ -1,0 +1,44 @@
+/* ReturnToWorld.css */
+
+.return-button {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .return-button .btn-primary {
+    background-color: #ff0000; /* Red color for the button */
+    color: white; /* White text color */
+    border-radius: 50px; /* Rounded border to create a hexagon shape */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .return-button .btn-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -15px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 25px solid #ff0000; /* Red color for the bottom border of the hexagon */
+  }
+  
+  .return-button .btn-primary:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -15px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 25px solid #ff0000; /* Red color for the top border of the hexagon */
+  }
+  

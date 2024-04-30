@@ -1,11 +1,14 @@
 // Sidebar.jsx
+
 import React, { useState } from 'react';
 import './Sidebar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+import NotePopup from './NotePopup';
 
 const Sidebar = ({ worlds, onSelectWorld }) => {
   const [worldName, setWorldName] = useState(''); // State to store the world name
   const [editing, setEditing] = useState(true); // State to track whether the name is being edited
+  const [showNotePopup, setShowNotePopup] = useState(false); // State to control the visibility of the note popup
 
   const handleWorldNameChange = (event) => {
     setWorldName(event.target.value); // Update the world name state when input changes
@@ -20,6 +23,10 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
 
   const handleButtonClick = (itemName) => {
     console.log(`Button clicked: ${itemName}`); // Perform action when button is clicked
+    if (itemName === 'Note') {
+      // Set showNotePopup to true to open the note popup
+      setShowNotePopup(true);
+    }
   };
 
   const handleSaveButtonClick = () => {
@@ -46,7 +53,6 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
             <span>{worldName}</span>
           )}
         </li>
-        {/* Rest of the sidebar items as buttons */}
         <li className="nav-link">
           <button className="btn" onClick={() => handleButtonClick('Note')}>
             <i className="bi bi-file-earmark-text"></i> Note
@@ -109,6 +115,8 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
           </button>
         </li>
       </ul>
+      {/* Render the NotePopup component conditionally based on showNotePopup state */}
+      <NotePopup isOpen={showNotePopup} onClose={() => setShowNotePopup(false)} />
     </div>
   );
 };
