@@ -1,31 +1,29 @@
-// Nav.jsx
-import React from 'react';
-import { Container, Navbar } from 'react-bootstrap';
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import NewWorldPopup from './NewWorldPopup';
+import './Nav.css'; // Import the nav.css file
+const Nav = ({ onAddWorld, setWorlds }) => { // Accept setWorlds function as prop
+  const [showPopup, setShowPopup] = useState(false);
 
-const NavComponent = () => {
+  const handleClosePopup = () => setShowPopup(false);
+  const handleShowPopup = () => setShowPopup(true);
+
+  const handleAddWorld = (worldData) => {
+    // Call onAddWorld function to add the new world
+    onAddWorld(worldData);
+    // Close the popup
+    handleClosePopup();
+  };
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand href="#">Codex of Worlds</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbar-nav" />
-        <Navbar.Collapse id="navbar-nav">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="/">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/login">Login</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/worlds">Worlds</a>
-            </li>
-            {/* Add more navigation links as needed */}
-          </ul>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="navbar">
+      <h1>Codex of Worlds</h1>
+      <Button variant="outline-primary" size="m" onClick={handleShowPopup}>
+        Add World
+      </Button>
+      <NewWorldPopup show={showPopup} handleClose={handleClosePopup} handleSubmit={handleAddWorld} />
+    </nav>
   );
 };
 
-export default NavComponent;
-
+export default Nav;

@@ -1,8 +1,11 @@
+/* sidebar.css */
+
 .sidebar {
-    width: 200px;
-    height: 100%;
-    background-color: #d40000;
-    padding: 20px;
+    width: 700px; /* Adjust the width as needed */
+    height: 100%; /* Ensure sidebar takes full height */
+    background-color: #ff9100; /* Change background color as desired */
+    padding: 20px; /* Add padding to create space between content and edges */
+    border-radius: 20px; /* Adds rounded corners */
   }
   
   .sidebar h2 {
