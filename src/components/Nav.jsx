@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import NewWorldPopup from './NewWorldPopup';
-import './Nav.css'; // Import the nav.css file
-const Nav = ({ onAddWorld, setWorlds }) => { // Accept setWorlds function as prop
-  const [showPopup, setShowPopup] = useState(false);
+import './Nav.css';
 
-  const handleClosePopup = () => setShowPopup(false);
-  const handleShowPopup = () => setShowPopup(true);
-
-  const handleAddWorld = (worldData) => {
-    // Call onAddWorld function to add the new world
-    onAddWorld(worldData);
-    // Close the popup
-    handleClosePopup();
-  };
-
+const Nav = () => {
   return (
     <nav className="navbar">
       <h1>Codex of Worlds</h1>
-      <Button variant="outline-primary" size="m" onClick={handleShowPopup}>
-        Add World
-      </Button>
-      <NewWorldPopup show={showPopup} handleClose={handleClosePopup} handleSubmit={handleAddWorld} />
+      <Link to="/worlds" className="nav-link">
+        <Button variant="outline-primary" size="m">
+          Worlds
+        </Button>
+      </Link>
+      <Link to="/brainstorming" className="nav-link">
+        <Button variant="outline-primary" size="m">
+          Brain Storming
+        </Button>
+      </Link>
     </nav>
   );
 };
 
 export default Nav;
+

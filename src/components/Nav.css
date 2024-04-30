@@ -1,8 +1,23 @@
-/* Nav.ccs */
+/* Nav.css */
+
 .navbar {
-    width: 700px; /* Adjust the width as needed */
-    height: 100%; /* Ensure sidebar takes full height */
-    background-color: #000000; /* Change background color as desired */
-    padding: 20px; /* Add padding to create space between content and edges */
-    border-radius: 20px; /* Adds rounded corners */
-  }
+  width: 500px; /* Adjust the width as needed */
+  height: 100%; /* Ensure sidebar takes full height */
+  background-color: #000000; /* Change background color as desired */
+  padding: 10px; /* Add padding to create space between content and edges */
+  border-radius: 10px; /* Adds rounded corners */
+}
+
+.navbar h1 {
+  font-size: 1.5rem; /* Adjust font size of the title */
+  color: white; /* Make the text white */
+}
+
+.nav-link {
+  margin-right: 10px; /* Add margin between buttons */
+}
+
+.btn {
+  padding: 5px 10px; /* Adjust padding of buttons */
+  font-size: 0.9rem; /* Adjust font size of buttons */
+}
