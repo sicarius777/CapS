@@ -90,15 +90,15 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
         </li>
         {/* Fauna button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Fauna')}>
+        <Link to="/Fauna" className="btn">
             <i className="bi bi-bug"></i> Fauna
-          </button>
+          </Link>
         </li>
         {/* Location button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Location')}>
+        <Link to="/Locations" className="btn">
             <i className="bi bi-geo-alt"></i> Location
-          </button>
+          </Link>
         </li>
         {/* Weather button */}
         <li className="nav-link">
