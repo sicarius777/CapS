@@ -78,15 +78,15 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
         </li>
         {/* Inspiration button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Inspiration')}>
-            <i className="bi bi-lightbulb"></i> Inspiration
-          </button>
+          <Link to="/inspiration" className="btn">
+          <i className="bi bi-lightbulb"></i> Inspiration
+          </Link>
         </li>
         {/* Flora button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Flora')}>
-            <i className="bi bi-flower1"></i> Flora
-          </button>
+          <Link to="/Flora" className="btn">
+          <i className="bi bi-flower1"></i> Flora
+          </Link>
         </li>
         {/* Fauna button */}
         <li className="nav-link">
