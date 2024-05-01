@@ -3,18 +3,18 @@ import Container from 'react-bootstrap/Container';
 import LoginPage from './pages/LoginPage';
 import WorldsPage from './pages/WorldsPage';
 import BrainStorming from './pages/BrainStorming';
+import WorldUsersPage from './pages/WorldUsersPage';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Maps from './pages/Maps'; // Adjust the path as needed based on your project structure
 import Inspiration from './pages/Inspiration';
 import Flora from './pages/Flora';
 import Fauna from './pages/Fauna';
 import Locations from './pages/Locations';
-
-
-
-
-
-import WorldUsersPage from './pages/WorldUsersPage';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import Weather from './pages/Weather';
+import Government from './pages/Government';
+import Character from './pages/Character';
+import Material from './pages/Material';
+import Relic from './pages/Relic';
 
 export default function App() {
   const [authenticated, setAuthenticated] = useState(true);
@@ -37,6 +37,11 @@ export default function App() {
         <Route path="/flora" element={<Flora/>}/>
         <Route path="/fauna" element={<Fauna/>}/>
         <Route path="/locations" element={<Locations/>}/>
+        <Route path="/weather" element={<Weather/>}/>
+        <Route path="/government" element={<Government/>}/>
+        <Route path="/character" element={<Character/>}/>
+        <Route path="/material" element={<Material/>}/>
+        <Route path="/relic" element={<Relic/>}/>
         {selectedWorld && (
           <Route path={`/worlds/${selectedWorld.id}`} element={<WorldUsersPage selectedWorld={selectedWorld} />} />
         )}

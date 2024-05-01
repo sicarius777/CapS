@@ -102,33 +102,33 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
         </li>
         {/* Weather button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Weather')}>
+        <Link to="/Weather" className="btn">
             <i className="bi bi-cloud-sun"></i> Weather
-          </button>
+          </Link>
         </li>
         {/* Government button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Government')}>
+        <Link to="/Government" className="btn">
             <i className="bi bi-building"></i> Government
-          </button>
+          </Link>
         </li>
         {/* Character button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Character')}>
+        <Link to="/Character" className="btn">
             <i className="bi bi-people"></i> Character
-          </button>
+          </Link>
         </li>
         {/* Material button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Material')}>
+        <Link to="/Material" className="btn">
             <i className="bi bi-tools"></i> Material
-          </button>
+          </Link>
         </li>
         {/* Relic button */}
         <li className="nav-link">
-          <button className="btn" onClick={() => handleButtonClick('Relic')}>
+        <Link to="/Relic" className="btn">
             <i className="bi bi-gem"></i> Relic
-          </button>
+          </Link>
         </li>
         {/* Save button */}
         <li className="nav-link">
