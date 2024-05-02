@@ -1,6 +1,47 @@
-/* WorldsPage.css */
+/* WorldQuotes.css */
 
-.WorldsPage {
-    background-color: #b97e0f; /* Tea-stained paper color */
-  }
-  
+body {
+  /* Set background image */
+  background-image: url('./RMC.webp');
+  /* Center and scale the background image */
+  background-position: center;
+  background-size: cover;
+  /* Apply a dark overlay to the background image */
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for opacity */
+}
+
+.world-quotes-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.world-quotes {
+  background-color: rgba(255, 0, 0, 0.9); /* Semi-transparent white background */
+  border: 2px solid #333; /* Dark border */
+  border-radius: 10px;
+  padding: 20px;
+  width: 70%; /* Adjust width as needed */
+  max-width: 600px; /* Maximum width */
+  text-align: center; /* Center text */
+}
+
+.world-quotes blockquote {
+  font-size: 18px;
+  font-style: italic;
+  color: #000000; /* Dark color for quote text */
+}
+
+.world-quotes blockquote p {
+  margin-bottom: 10px;
+}
+
+.world-quotes blockquote footer {
+  text-align: right;
+  font-style: normal; /* Reset font style */
+  font-weight: bold; /* Make author text bold */
+  margin-top: 20px; /* Add margin at the top */
+  color: #000000; /* Dark gray color for author text */
+}

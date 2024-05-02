@@ -1,7 +1,7 @@
 /* Nav.css */
 
 .navbar {
-  width: 500px; /* Adjust the width as needed */
+  width: 600px; /* Adjust the width as needed */
   height: 100%; /* Ensure sidebar takes full height */
   background-color: #000000; /* Change background color as desired */
   padding: 10px; /* Add padding to create space between content and edges */
@@ -11,8 +11,9 @@
 .navbar h1 {
   font-size: 1.5rem; /* Adjust font size of the title */
   color: white; /* Make the text white */
+  text-align: right; /* Align the text to the right */
+  margin-right: 10px; /* Move the text to the right by 10px */
 }
-
 .nav-link {
   margin-right: 10px; /* Add margin between buttons */
 }

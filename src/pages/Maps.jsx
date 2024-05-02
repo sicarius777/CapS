@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Nav from '../components/Nav';
 import './Maps.css'; // Import CSS file for styling
 
@@ -10,39 +10,20 @@ const Maps = () => {
 
   const handleSaveButtonClick = () => {
     if (currentMapData.trim() !== '' && imageFile) {
-      const formData = new FormData();
-      formData.append('content', currentMapData.trim());
-      formData.append('image', imageFile);
+      // Construct a new object representing the map data including the image
+      const newMapData = {
+        content: currentMapData.trim(),
+        image: URL.createObjectURL(imageFile) // Convert the image file to a data URL
+      };
 
-      // Send data to the backend to create a new map
-      createMap(formData)
-        .then((newMapData) => {
-          // Add the newly created map to the mapDataList
-          setMapDataList([...mapDataList, newMapData]);
-          // Clear the currentMapData input
-          setCurrentMapData('');
-          // Clear the image file
-          setImageFile(null);
-        })
-        .catch((error) => console.error('Error creating map:', error));
+      // Add newMapData to mapDataList array
+      setMapDataList([...mapDataList, newMapData]);
+
+      // Clear the currentMapData input
+      setCurrentMapData('');
+      // Clear the image file
+      setImageFile(null);
     }
-  };
-
-  useEffect(() => {
-    // Fetch all maps when the component mounts
-    getAllMaps()
-      .then((maps) => {
-        // Update mapDataList with fetched maps
-        setMapDataList(maps);
-      })
-      .catch((error) => console.error('Error fetching maps:', error));
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
-
-  const handleRemoveButtonClick = (index) => {
-    // Remove the map data at the specified index from the mapDataList array
-    const updatedMapDataList = [...mapDataList];
-    updatedMapDataList.splice(index, 1);
-    setMapDataList(updatedMapDataList);
   };
 
   // Handle image file selection
@@ -86,8 +67,6 @@ const Maps = () => {
               className={expandedImageIndex === index ? 'expanded' : ''}
               onClick={() => handleImageClick(index)}
             />
-            {/* Button to remove the corresponding map data */}
-            <button onClick={() => handleRemoveButtonClick(index)}>Remove</button>
           </div>
         ))}
       </div>
@@ -96,26 +75,3 @@ const Maps = () => {
 };
 
 export default Maps;
-
-function createMap(mapData) {
-  return fetch('/maps', {
-    method: 'POST',
-    body: mapData
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to create map');
-    }
-    return response.json();
-  });
-}
-
-function getAllMaps() {
-  return fetch('/maps')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to fetch maps');
-    }
-    return response.json();
-  });
-}
