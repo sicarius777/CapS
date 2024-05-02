@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db, User, World, Note, Map, Inspiration, Flora, Fauna, Location, Weather, Government, Character, Material, Relic  # Import your models from models.py
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -147,6 +148,31 @@ def create_map():
         return jsonify(new_map.serialize()), 201
     else:
         return jsonify({'error': 'Missing data'}), 400
+    
+  # Route to update an existing map
+@app.route('/maps/<int:map_id>', methods=['PUT'])
+def update_map(map_id):
+    map = Map.query.get(map_id)
+    if map:
+        data = request.json
+        map.content = data.get('content', map.content)
+        map.world_id = data.get('world_id', map.world_id)
+        db.session.commit()
+        return jsonify(map.serialize()), 200
+    else:
+        return jsonify({'error': 'Map not found'}), 404
+
+# Route to delete a map
+@app.route('/maps/<int:map_id>', methods=['DELETE'])
+def delete_map(map_id):
+    map = Map.query.get(map_id)
+    if map:
+        db.session.delete(map)
+        db.session.commit()
+        return jsonify({'message': 'Map deleted successfully'}), 200
+    else:
+        return jsonify({'error': 'Map not found'}), 404
+
 
 # Route to get all notes
 @app.route('/notes', methods=['GET'])

@@ -5,7 +5,7 @@ import WorldsPage from './pages/WorldsPage';
 import BrainStorming from './pages/BrainStorming';
 import WorldUsersPage from './pages/WorldUsersPage';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Maps from './pages/Maps'; // Adjust the path as needed based on your project structure
+import Maps from './pages/Maps';
 import Inspiration from './pages/Inspiration';
 import Flora from './pages/Flora';
 import Fauna from './pages/Fauna';

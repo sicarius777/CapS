@@ -1,0 +1,56 @@
+/* Maps.css */
+
+.map-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .map-box {
+    position: relative;
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .map-box h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .map-box p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .map-box img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .map-box button {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .map-box button:hover {
+    background-color: #c82333;
+  }
+  
+  .map-box img.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    max-width: 90%;
+    max-height: 90%;
+  }
+  
