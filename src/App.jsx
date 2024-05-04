@@ -1,4 +1,3 @@
-//App.jsx
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -33,7 +32,6 @@ const App = () => {
   };
 
   return (
-    <Router>
       <Container fluid className='app'>
         <Routes>
           <Route path='/login' element={<LoginPage onLogin={handleLogin} />} />
@@ -53,8 +51,7 @@ const App = () => {
           {/* Redirect to /worlds if no other route matches */}
           <Route path='*' element={<Navigate to="/worlds" replace />} />
         </Routes>
-      </Container>
-    </Router>
+    </Container>
   );
 };
 
