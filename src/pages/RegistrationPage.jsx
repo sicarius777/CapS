@@ -1,19 +1,19 @@
-// LoginPage.jsx
+// RegistrationPage.jsx
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const RegistrationPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      // Perform login logic
-      // Example: Send login data to the server
-      const response = await fetch('/api/login', {
+      // Perform registration logic
+      // Example: Send registration data to the server
+      const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,20 +22,20 @@ const LoginPage = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+        throw new Error('Registration failed');
       }
 
-      // Redirect to WorldsPage upon successful login
+      // Redirect to WorldsPage upon successful registration
       navigate('/worlds');
     } catch (error) {
-      console.error('Login error:', error.message);
+      console.error('Registration error:', error.message);
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+      <h1>Registration</h1>
+      <form onSubmit={handleRegistration}>
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -54,11 +54,11 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
-      <p>Don't have an account? <a href="/register">Register</a></p>
+      <p>Already have an account? <a href="/login">Login</a></p>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;

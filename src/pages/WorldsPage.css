@@ -1,6 +1,7 @@
 /* WorldQuotes.css */
 
-body {
+/* Apply background image to the body */
+.worlds-page-body {
   /* Set background image */
   background-image: url('./RMC.webp');
   /* Center and scale the background image */
@@ -8,14 +9,22 @@ body {
   background-size: cover;
   /* Apply a dark overlay to the background image */
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for opacity */
+  z-index: -1;
 }
+
+/* Ensure the navbar appears above the background */
+.navbar {
+  position: relative;
+  z-index: 2; /* Ensure the navbar appears above the background */
+}
+
 
 .world-quotes-container {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 80%;
   transform: translate(-50%, -50%);
-  z-index: -1;
+  z-index: 1;
 }
 
 .world-quotes {

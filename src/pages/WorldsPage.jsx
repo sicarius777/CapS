@@ -9,7 +9,7 @@ import './WorldsPage.css'; // Import WorldsPage.css file
 
 const WorldsPage = ({ onAddWorld, onSelectWorld, worlds }) => {
   return (
-    <Container fluid>
+    <Container fluid className="worlds-page-body">
       <Navbar onAddWorld={onAddWorld} /> {/* Pass onAddWorld function as prop */}
       <div className="worlds-page-content">
         <Sidebar worlds={worlds} onSelectWorld={onSelectWorld} /> {/* Pass onSelectWorld as prop */}
