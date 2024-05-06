@@ -1,10 +1,9 @@
-// RegistrationPage.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); // Define email state variable
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
@@ -13,12 +12,12 @@ const RegistrationPage = () => {
     try {
       // Perform registration logic
       // Example: Send registration data to the server
-      const response = await fetch('/api/register', {
+      const response = await fetch('/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, email, password }),
       });
 
       if (!response.ok) {
@@ -43,6 +42,15 @@ const RegistrationPage = () => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label> {/* Add an email input field */}
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
