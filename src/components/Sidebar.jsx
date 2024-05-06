@@ -2,17 +2,12 @@
 
 import React, { useState } from 'react';
 import './Sidebar.css';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
-import NotePopup from './NotePopup'; // Import NotePopup component
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link } from 'react-router-dom';
+import NotePopup from './NotePopup'; // Import NotePopup component
 
-
-
-
-
-const Sidebar = ({ worlds, onSelectWorld }) => {
+const Sidebar = ({ worlds, onSelectWorld, onAddWorld }) => {
   const [worldName, setWorldName] = useState('');
-  const [editing, setEditing] = useState(true);
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [notes, setNotes] = useState([]); // Define notes state
 
@@ -20,23 +15,11 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
     setWorldName(event.target.value);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      setEditing(false);
-    }
-  };
-
   const handleButtonClick = (itemName) => {
     console.log(`Button clicked: ${itemName}`);
     if (itemName === 'Note') {
       setShowNotePopup(true);
     }
-  };
-
-  const handleSaveButtonClick = () => {
-    console.log('Save button clicked');
-    // Add logic to save data or perform any other action here
   };
 
   const handleAddNote = (newNote) => {
@@ -48,21 +31,20 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
     <div className="sidebar">
       <h2></h2>
       <ul>
-        {/* World name */}
+        {/* World name input field */}
         <li className="nav-link">
-          <i className="bi bi-globe"></i>
-          {/* Conditionally render either the input field or the world name */}
-          {editing ? (
-            <input
-              type="text"
-              placeholder="Enter world name"
-              value={worldName}
-              onChange={handleWorldNameChange}
-              onKeyDown={handleKeyDown}
-            />
-          ) : (
-            <span>{worldName}</span>
-          )}
+          <input
+            type="text"
+            placeholder="Enter world name"
+            value={worldName}
+            onChange={handleWorldNameChange}
+          />
+        </li>
+        {/* Save button for the new world */}
+        <li className="nav-link">
+          <button className="btn" onClick={() => onAddWorld(worldName)}>
+            <i className="bi bi-save"></i> Save World
+          </button>
         </li>
         {/* Note button */}
         <li className="nav-link">
@@ -73,68 +55,62 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
         {/* Map button */}
         <li className="nav-link">
           <Link to="/maps" className="btn">
-          <i className="bi bi-map"></i> Map
+            <i className="bi bi-map"></i> Map
           </Link>
         </li>
         {/* Inspiration button */}
         <li className="nav-link">
           <Link to="/inspiration" className="btn">
-          <i className="bi bi-lightbulb"></i> Inspiration
+            <i className="bi bi-lightbulb"></i> Inspiration
           </Link>
         </li>
         {/* Flora button */}
         <li className="nav-link">
-          <Link to="/Flora" className="btn">
-          <i className="bi bi-flower1"></i> Flora
+          <Link to="/flora" className="btn">
+            <i className="bi bi-flower1"></i> Flora
           </Link>
         </li>
         {/* Fauna button */}
         <li className="nav-link">
-        <Link to="/Fauna" className="btn">
+          <Link to="/fauna" className="btn">
             <i className="bi bi-bug"></i> Fauna
           </Link>
         </li>
         {/* Location button */}
         <li className="nav-link">
-        <Link to="/Locations" className="btn">
+          <Link to="/locations" className="btn">
             <i className="bi bi-geo-alt"></i> Location
           </Link>
         </li>
         {/* Weather button */}
         <li className="nav-link">
-        <Link to="/Weather" className="btn">
+          <Link to="/weather" className="btn">
             <i className="bi bi-cloud-sun"></i> Weather
           </Link>
         </li>
         {/* Government button */}
         <li className="nav-link">
-        <Link to="/Government" className="btn">
+          <Link to="/government" className="btn">
             <i className="bi bi-building"></i> Government
           </Link>
         </li>
         {/* Character button */}
         <li className="nav-link">
-        <Link to="/Character" className="btn">
+          <Link to="/character" className="btn">
             <i className="bi bi-people"></i> Character
           </Link>
         </li>
         {/* Material button */}
         <li className="nav-link">
-        <Link to="/Material" className="btn">
+          <Link to="/material" className="btn">
             <i className="bi bi-tools"></i> Material
           </Link>
         </li>
         {/* Relic button */}
         <li className="nav-link">
-        <Link to="/Relic" className="btn">
+          <Link to="/relic" className="btn">
             <i className="bi bi-gem"></i> Relic
           </Link>
-        </li>
-        {/* Save button */}
-        <li className="nav-link">
-          <button className="btn" onClick={handleSaveButtonClick}>
-            <i className="bi bi-save"></i> Save
-          </button>
         </li>
       </ul>
       {/* Render the NotePopup component conditionally based on showNotePopup state */}
@@ -150,7 +126,6 @@ const Sidebar = ({ worlds, onSelectWorld }) => {
           </ul>
         </div>
       )}
-      {/* Rest of the sidebar content */}
     </div>
   );
 };

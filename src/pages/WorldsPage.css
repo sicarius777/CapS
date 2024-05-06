@@ -1,4 +1,4 @@
-/* WorldQuotes.css */
+/* WorldsPage.css */
 
 /* Apply background image to the body */
 .worlds-page-body {
@@ -18,7 +18,18 @@
   z-index: 2; /* Ensure the navbar appears above the background */
 }
 
+/* Center the saved worlds list */
+.saved-worlds-wrapper {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%);
+}
 
+/* Quote styles */
 .world-quotes-container {
   position: fixed;
   top: 40%;
@@ -28,7 +39,7 @@
 }
 
 .world-quotes {
-  background-color: rgba(255, 0, 0, 0.9); /* Semi-transparent white background */
+  background-color: rgba(255, 0, 0, 0.9); /* Semi-transparent red background */
   border: 2px solid #333; /* Dark border */
   border-radius: 10px;
   padding: 20px;

@@ -1,20 +1,35 @@
 // WorldsPage.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Navbar from '../components/Nav'; // Import Navbar component
+import Navbar from '../components/Nav';
 import Sidebar from '../components/Sidebar';
-import WorldQuotes from '../components/WorldQuotes'; // Import WorldQuotes component
-import './WorldsPage.css'; // Import WorldsPage.css file
+import WorldList from '../components/WorldList'; // Import WorldList component
+import WorldQuotes from '../components/WorldQuotes';
+import './WorldsPage.css';
 
-const WorldsPage = ({ onAddWorld, onSelectWorld, worlds }) => {
+const WorldsPage = () => {
+  const [worlds, setWorlds] = useState([]);
+
+  const addWorld = (worldName) => {
+    // Logic to add the new world to the state or perform any other action
+    setWorlds([...worlds, { name: worldName }]);
+  };
+
+  const onSelectWorld = () => {
+    // Logic to handle selecting a world
+  };
+
   return (
     <Container fluid className="worlds-page-body">
-      <Navbar onAddWorld={onAddWorld} /> {/* Pass onAddWorld function as prop */}
+      <Navbar />
       <div className="worlds-page-content">
-        <Sidebar worlds={worlds} onSelectWorld={onSelectWorld} /> {/* Pass onSelectWorld as prop */}
+        {/* Pass the onAddWorld prop to the Sidebar component */}
+        <Sidebar worlds={worlds} onSelectWorld={onSelectWorld} onAddWorld={addWorld} />
+        {/* Display the list of saved worlds using the WorldList component */}
+        <WorldList worlds={worlds} onSelectWorld={onSelectWorld} />
         {/* Content of the main section */}
-        <div className="world-quotes-container"> {/* Add container for WorldQuotes */}
+        <div className="world-quotes-container">
           <WorldQuotes />
         </div>
       </div>

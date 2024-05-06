@@ -7,22 +7,35 @@ const Maps = () => {
   const [currentMapData, setCurrentMapData] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [expandedImageIndex, setExpandedImageIndex] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSaveButtonClick = () => {
-    if (currentMapData.trim() !== '' && imageFile) {
-      // Construct a new object representing the map data including the image
-      const newMapData = {
-        content: currentMapData.trim(),
-        image: URL.createObjectURL(imageFile) // Convert the image file to a data URL
-      };
+  const handleSaveButtonClick = async () => {
+    try {
+      if (currentMapData.trim() !== '' && imageFile) {
+        const formData = new FormData();
+        formData.append('content', currentMapData.trim());
+        formData.append('image', imageFile);
 
-      // Add newMapData to mapDataList array
-      setMapDataList([...mapDataList, newMapData]);
+        const response = await fetch('/maps', {
+          method: 'POST',
+          body: formData,
+        });
 
-      // Clear the currentMapData input
-      setCurrentMapData('');
-      // Clear the image file
-      setImageFile(null);
+        if (response.ok) {
+          const newMapData = await response.json();
+          setMapDataList([...mapDataList, newMapData]);
+          setCurrentMapData('');
+          setImageFile(null);
+        } else {
+          const errorData = await response.json();
+          setErrorMessage(errorData.error);
+        }
+      } else {
+        setErrorMessage('Please provide map data and an image.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('An error occurred. Please try again later.');
     }
   };
 
@@ -42,7 +55,7 @@ const Maps = () => {
   };
 
   return (
-    <div>
+    <div className="map-page">
       {/* Include the Nav component */}
       <Nav />
       <h1>Maps</h1>
@@ -52,7 +65,8 @@ const Maps = () => {
         {/* Input field to upload image */}
         <input type="file" accept="image/*" onChange={handleImageChange} />
         {/* Button to save current map data */}
-        <button onClick={handleSaveButtonClick}>Save</button>
+        <button onClick={handleSaveButtonClick}>Add</button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
       <div className="map-container">
         {/* Display saved map datas in grid pattern */}
