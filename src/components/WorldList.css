@@ -1,0 +1,46 @@
+/* WorldList.css */
+
+.saved-worlds-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: var(--worlds-wrapper-top, 50%);
+  left: var(--worlds-wrapper-left, 50%);
+  transform: translate(-50%, -50%);
+}
+
+.saved-worlds-list {
+  background-color: rgba(255, 241, 197, 0.9); /* Semi-transparent white background */
+  border: 2px solid #333; /* Dark border */
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 180%; /* Maximum width */
+}
+
+.saved-worlds-list h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.saved-worlds-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.saved-worlds-list li {
+  margin-bottom: 10px;
+  position: relative; /* Make the list item position relative */
+}
+
+.saved-worlds-list li button {
+  position: absolute;
+  right: 10px; /* Adjust the right spacing */
+  top: 50%; /* Align to the vertical center */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+}
+
+.saved-worlds-list li button:first-child {
+  right: auto; /* Reset right position */
+  left: 10px; /* Set left spacing */
+}

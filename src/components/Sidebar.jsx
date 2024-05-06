@@ -1,12 +1,11 @@
-// Sidebar.jsx
-
+//Sidebar.jsx
 import React, { useState } from 'react';
 import './Sidebar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link } from 'react-router-dom';
 import NotePopup from './NotePopup'; // Import NotePopup component
 
-const Sidebar = ({ worlds, onSelectWorld, onAddWorld }) => {
+const Sidebar = ({ onSelectWorld }) => {
   const [worldName, setWorldName] = useState('');
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [notes, setNotes] = useState([]); // Define notes state
@@ -21,6 +20,26 @@ const Sidebar = ({ worlds, onSelectWorld, onAddWorld }) => {
       setShowNotePopup(true);
     }
   };
+
+  // In Sidebar.jsx
+const handleAddWorld = () => {
+  fetch('/worlds', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title: worldName }), // Change 'name' to 'title'
+  })
+    .then(response => response.json())
+    .then(newWorld => {
+      console.log('New world created:', newWorld);
+      // Add the newly created world to the list of worlds
+      onSelectWorld(newWorld);
+      // Clear the input field
+      setWorldName('');
+    })
+    .catch(error => console.error('Error creating new world:', error));
+};
 
   const handleAddNote = (newNote) => {
     setNotes([...notes, newNote]); // Update notes state with the new note
@@ -42,7 +61,7 @@ const Sidebar = ({ worlds, onSelectWorld, onAddWorld }) => {
         </li>
         {/* Save button for the new world */}
         <li className="nav-link">
-          <button className="btn" onClick={() => onAddWorld(worldName)}>
+          <button className="btn" onClick={handleAddWorld}>
             <i className="bi bi-save"></i> Save World
           </button>
         </li>

@@ -20,6 +20,11 @@ const WorldsPage = () => {
     // Logic to handle selecting a world
   };
 
+  const onDeleteWorld = (worldToDelete) => {
+    // Logic to delete the world
+    setWorlds(worlds.filter(world => world !== worldToDelete));
+  };
+
   return (
     <Container fluid className="worlds-page-body">
       <Navbar />
@@ -27,7 +32,7 @@ const WorldsPage = () => {
         {/* Pass the onAddWorld prop to the Sidebar component */}
         <Sidebar worlds={worlds} onSelectWorld={onSelectWorld} onAddWorld={addWorld} />
         {/* Display the list of saved worlds using the WorldList component */}
-        <WorldList worlds={worlds} onSelectWorld={onSelectWorld} />
+        <WorldList worlds={worlds} onSelectWorld={onSelectWorld} onDeleteWorld={onDeleteWorld} />
         {/* Content of the main section */}
         <div className="world-quotes-container">
           <WorldQuotes />

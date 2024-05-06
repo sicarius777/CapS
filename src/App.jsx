@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -49,7 +50,7 @@ const App = () => {
           <Route path="/material" element={<Material />} />
           <Route path="/relic" element={<Relic />} />
           {/* Redirect to /worlds if no other route matches */}
-          <Route path='*' element={<Navigate to="/worlds" replace />} />
+          <Route path='*' element={<Navigate to="/login" replace />} />
         </Routes>
     </Container>
   );
