@@ -1,6 +1,6 @@
 // Relic.jsx
 import React from 'react';
-
+import Nav from '../components/Nav';
 const Relic = () => {
   return (
     <div>

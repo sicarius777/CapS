@@ -1,4 +1,3 @@
-//Sidebar.jsx
 import React, { useState } from 'react';
 import './Sidebar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -21,30 +20,55 @@ const Sidebar = ({ onSelectWorld }) => {
     }
   };
 
-  // In Sidebar.jsx
-const handleAddWorld = () => {
-  fetch('/worlds', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ title: worldName }), // Change 'name' to 'title'
-  })
-    .then(response => response.json())
-    .then(newWorld => {
-      console.log('New world created:', newWorld);
-      // Add the newly created world to the list of worlds
-      onSelectWorld(newWorld);
-      // Clear the input field
-      setWorldName('');
-    })
-    .catch(error => console.error('Error creating new world:', error));
-};
-
   const handleAddNote = (newNote) => {
-    setNotes([...notes, newNote]); // Update notes state with the new note
-    setShowNotePopup(false);
+    setNotes([...notes, newNote]);
   };
+
+  const handleAddWorld = async () => {
+    try {
+      // Make a request to your backend to retrieve the user ID
+      const response = await fetch('/getUserId', {
+        method: 'GET',
+        credentials: 'include', // Include credentials to send cookies if using sessions
+      });
+  
+      if (response.ok) {
+        const { userId } = await response.json(); // Assuming the response contains the userId
+        // Now that you have the userId, make the request to create a new world
+        const worldData = {
+          title: worldName,
+          userId: userId, // Include the user ID in the request body
+        };
+  
+        const createWorldResponse = await fetch('/worlds', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(worldData),
+        });
+  
+        if (createWorldResponse.ok) {
+          const newWorld = await createWorldResponse.json();
+          console.log('New world created:', newWorld);
+          // Add the newly created world to the list of worlds
+          onSelectWorld(newWorld);
+          // Clear the input field
+          setWorldName('');
+        } else {
+          console.error('Failed to create new world:', createWorldResponse.statusText);
+          // Handle the error or display a notification to the user
+        }
+      } else {
+        console.error('Failed to fetch user ID:', response.statusText);
+        // Handle the error or display a notification to the user
+      }
+    } catch (error) {
+      console.error('Error creating new world:', error);
+      // Handle the error or display a notification to the user
+    }
+  };
+  
 
   return (
     <div className="sidebar">

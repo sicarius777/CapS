@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request
+# app.py
+from flask import Flask, jsonify, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db, User, World, Note, Map, Inspiration, Flora, Fauna, Location, Weather, Government, Character, Material, Relic  # Import your models from models.py
@@ -36,6 +37,31 @@ def login():
     else:
         # Authentication failed
         return jsonify({'error': 'Invalid username or password'}), 401
+
+
+# Route to set the user ID in the session upon login
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if user and user.check_password(password):
+        session['user_id'] = user.id  # Set the user ID in the session
+        return jsonify({'message': 'Login successful', 'user_id': user.id}), 200
+    else:
+        return jsonify({'error': 'Invalid username or password'}), 401
+
+# Route to get the current session's user ID
+@app.route('/api/current_user', methods=['GET'])
+def get_current_user():
+    user_id = session.get('user_id')
+    if user_id:
+        return jsonify({'user_id': user_id}), 200
+    else:
+        return jsonify({'error': 'User not authenticated'}), 401
 
 # Route to get all worlds
 @app.route('/worlds', methods=['GET'])

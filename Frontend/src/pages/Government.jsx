@@ -1,6 +1,6 @@
 // Government.jsx
 import React from 'react';
-
+import Nav from '../components/Nav';
 const Government = () => {
   return (
     <div>

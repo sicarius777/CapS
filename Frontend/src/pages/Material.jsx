@@ -1,6 +1,6 @@
 // Material.jsx
 import React from 'react';
-
+import Nav from '../components/Nav';
 const Material = () => {
   return (
     <div>
