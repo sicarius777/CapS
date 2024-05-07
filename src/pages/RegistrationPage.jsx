@@ -12,7 +12,7 @@ const RegistrationPage = () => {
     try {
       // Perform registration logic
       // Example: Send registration data to the server
-      const response = await fetch('/users', {
+      const response = await fetch('http://127.0.0.1:5000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

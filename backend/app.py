@@ -5,6 +5,8 @@ from models import db, User, World, Note, Map, Inspiration, Flora, Fauna, Locati
 from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
