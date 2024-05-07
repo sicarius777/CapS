@@ -3,12 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db, User, World, Note, Map, Inspiration, Flora, Fauna, Location, Weather, Government, Character, Material, Relic  # Import your models from models.py
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
 app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv ('SQLALCHEMY_TRACK_MODIFICATIONS')
+app.config['FLASK_DEBUG'] = os.getenv ('FLASK_DEBUG')
 db.init_app(app)
 migrate = Migrate(app, db)
 

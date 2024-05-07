@@ -10,8 +10,11 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
-    worlds = db.relationship('World', backref='user', lazy=True)
-
+    # worlds = db.relationship('World', backref='user', lazy=True)
+    def serialize(self): 
+        return{'id':self.id, 
+            'username':self.username,
+             'email':self.email}
 # world
 class World(db.Model):
     id = db.Column(db.Integer, primary_key=True)
