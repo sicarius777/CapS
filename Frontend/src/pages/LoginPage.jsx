@@ -12,19 +12,6 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       // Perform login logic
-      // Example: Send login data to the server
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
       // Redirect to WorldsPage upon successful login
       navigate('/worlds');
     } catch (error) {

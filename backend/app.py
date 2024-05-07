@@ -18,6 +18,25 @@ app.config['FLASK_DEBUG'] = os.getenv ('FLASK_DEBUG')
 db.init_app(app)
 migrate = Migrate(app, db)
 
+# Route to login
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    # Perform authentication logic (e.g., validate username and password)
+    # Example: Check if the username and password match a user in the database
+    user = User.query.filter_by(username=username).first()
+
+    if user and user.check_password(password):
+        # Authentication successful
+        # You can return a success message or user data here
+        return jsonify({'message': 'Login successful', 'user_id': user.id}), 200
+    else:
+        # Authentication failed
+        return jsonify({'error': 'Invalid username or password'}), 401
+
 # Route to get all worlds
 @app.route('/worlds', methods=['GET'])
 def get_worlds():
