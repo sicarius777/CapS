@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from '../components/Nav';
 import Sidebar from '../components/Sidebar';
-import WorldList from '../components/WorldList'; // Import WorldList component
+import WorldList from '../components/WorldList';
 import WorldQuotes from '../components/WorldQuotes';
 import './WorldsPage.css';
 
@@ -12,7 +12,6 @@ const WorldsPage = () => {
   const [worlds, setWorlds] = useState([]);
 
   const addWorld = (worldName) => {
-    // Logic to add the new world to the state or perform any other action
     setWorlds([...worlds, { name: worldName }]);
   };
 
@@ -21,7 +20,6 @@ const WorldsPage = () => {
   };
 
   const onDeleteWorld = (worldToDelete) => {
-    // Logic to delete the world
     setWorlds(worlds.filter(world => world !== worldToDelete));
   };
 
@@ -29,11 +27,8 @@ const WorldsPage = () => {
     <Container fluid className="worlds-page-body">
       <Navbar />
       <div className="worlds-page-content">
-        {/* Pass the onAddWorld prop to the Sidebar component */}
-        <Sidebar worlds={worlds} onSelectWorld={onSelectWorld} onAddWorld={addWorld} />
-        {/* Display the list of saved worlds using the WorldList component */}
+        <Sidebar onSelectWorld={onSelectWorld} onAddWorld={addWorld} />
         <WorldList worlds={worlds} onSelectWorld={onSelectWorld} onDeleteWorld={onDeleteWorld} />
-        {/* Content of the main section */}
         <div className="world-quotes-container">
           <WorldQuotes />
         </div>

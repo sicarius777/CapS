@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -16,6 +15,7 @@ import Government from './pages/Government';
 import Character from './pages/Character';
 import Material from './pages/Material';
 import Relic from './pages/Relic';
+import Notepad from './components/Notepad';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false); // Initially not authenticated
@@ -33,7 +33,7 @@ const App = () => {
   };
 
   return (
-      <Container fluid className='app'>
+    <Container fluid className='app'>
         <Routes>
           <Route path='/login' element={<LoginPage onLogin={handleLogin} />} />
           <Route path='/register' element={<RegistrationPage />} />
@@ -49,8 +49,10 @@ const App = () => {
           <Route path="/character" element={<Character />} />
           <Route path="/material" element={<Material />} />
           <Route path="/relic" element={<Relic />} />
+          {/* Add a route for the Notepad component */}
+          <Route path="/notepad" element={<Notepad />} />
           {/* Redirect to /worlds if no other route matches */}
-          <Route path='*' element={<Navigate to="/login" replace />} />
+          <Route path='*' element={<Navigate to="/worlds" replace />} />
         </Routes>
     </Container>
   );

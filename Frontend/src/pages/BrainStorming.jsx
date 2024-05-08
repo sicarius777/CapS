@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
+import Nav from '../components/Nav'; // Import the Nav component
 import './BrainStorming.css';
-import ReturnToWorld from "../components/ReturnToWorld";
-
-
-
 
 const BrainStormer = () => {
   const [prompt, setPrompt] = useState('');
@@ -25,29 +22,29 @@ const BrainStormer = () => {
   };
 
   return (
-    <div className="chat-container">
-      <h1 className="text-center">Brain Storming</h1>
-      <div className="chat-window">
-        <div>
-          <label htmlFor="prompt">Whats on your mind?:</label>
-          <input
-            type="text"
-            id="prompt"
-            value={prompt}
-            onChange={handlePromptChange}
-            placeholder="Type your prompt here..."
-          />
-          <button onClick={handleSubmit}>Submit</button>
-        </div>
-        {response && (
-          <div className="response-box">
-            <h2>Response:</h2>
-            <p>{response}</p>
+    <div>
+      <Nav /> {/* Include the Nav component */}
+      <div className="chat-container">
+        <h1 className="text-center">Brain Storming</h1>
+        <div className="chat-window">
+          <div>
+            <label htmlFor="prompt">Whats on your mind?:</label>
+            <input
+              type="text"
+              id="prompt"
+              value={prompt}
+              onChange={handlePromptChange}
+              placeholder="Type your prompt here..."
+            />
+            <button onClick={handleSubmit}>Submit</button>
           </div>
-        )}
-      </div>
-      <div className="user-input">
-        <ReturnToWorld /> {/* Include the ReturnToWorld component */}
+          {response && (
+            <div className="response-box">
+              <h2>Response:</h2>
+              <p>{response}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

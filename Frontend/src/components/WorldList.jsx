@@ -1,25 +1,33 @@
-// WorldsList.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './WorldList.css';
 
 const WorldList = ({ worlds, onSelectWorld, onEditWorld, onDeleteWorld, style }) => {
-  const handleDeleteClick = async (e, world) => {
-    e.stopPropagation(); // Prevents click event from propagating to the list item
+  const [newWorldName, setNewWorldName] = useState(''); // State to store the new world name
+
+  const handleAddWorld = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
     try {
-      const response = await fetch(`/worlds/${world.id}`, {
-        method: 'DELETE',
+      const response = await fetch('/worlds', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ name: newWorldName }) // Send the new world name in the request body
       });
+
       if (response.ok) {
-        onDeleteWorld(world.id); // Call the onDeleteWorld callback to update the state
+        const newWorld = await response.json();
+        console.log('New world created:', newWorld);
+        // Optionally, update the UI to display the newly created world
+        // Clear the input field after successful creation
+        setNewWorldName('');
       } else {
-        console.error('Failed to delete world:', response.statusText);
+        console.error('Failed to create new world:', response.statusText);
         // Optionally, handle the error or display a notification to the user
       }
     } catch (error) {
-      console.error('Error deleting world:', error);
+      console.error('Error creating new world:', error);
       // Optionally, handle the error or display a notification to the user
     }
   };
@@ -40,6 +48,16 @@ const WorldList = ({ worlds, onSelectWorld, onEditWorld, onDeleteWorld, style })
             </li>
           ))}
         </ul>
+        {/* Form to add a new world */}
+        <form onSubmit={handleAddWorld}>
+          <input
+            type="text"
+            value={newWorldName}
+            onChange={(e) => setNewWorldName(e.target.value)}
+            placeholder="Enter world name"
+          />
+          <button type="submit" className="btn btn-primary">Add World</button>
+        </form>
       </div>
     </div>
   );
