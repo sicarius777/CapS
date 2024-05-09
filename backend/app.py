@@ -1,11 +1,14 @@
 # app.py
-from flask import Flask, jsonify, request, session, request, redirect, url_for
+from flask import Flask, jsonify, request, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db, User, World, Note, Map, Inspiration, Flora, Fauna, Location, Weather, Government, Character, Material, Relic  # Import your models from models.py
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
+
+if __name__ == '__main__':
+    app.run(debug=True)  # You can specify the port here, e.g., app.run(debug=True, port=5000)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,10 +19,11 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv ('SQLALCHEMY_TRACK_MODIFICATIONS')
 app.config['FLASK_DEBUG'] = os.getenv ('FLASK_DEBUG')
-db.init_app(app)
+
+db=SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Change the endpoint function name from login to login_user
+# Login
 @app.route('/api/login', methods=['POST'])
 def login_user():
     data = request.json
@@ -70,13 +74,25 @@ def login():
         return jsonify({'error': 'Invalid username or password'}), 401
 
 # Route to get the current session's user ID
-@app.route('/api/current_user', methods=['GET'])
+@app.route('/api/current_user')
 def get_current_user():
-    user_id = session.get('user_id')
-    if user_id:
-        return jsonify({'user_id': user_id}), 200
+    # Check if user is authenticated (example: using session)
+    if 'user_id' in session:
+        user_id = session['user_id']
+        # Retrieve user data from the database
+        user = User.query.get(user_id)
+        if user:
+            # Serialize user data
+            user_data = {
+                'id': user.id,
+                'username': user.username,
+                # Add other user attributes as needed
+            }
+            return jsonify({'user': user_data}), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
     else:
-        return jsonify({'error': 'User not authenticated'}), 401
+        return jsonify({'error': 'Not authenticated'}), 401
 
 # Route to create a new user
 @app.route('/users', methods=['POST'])
@@ -94,7 +110,7 @@ def create_user():
         return jsonify({'error': 'Missing data'}), 400
 
 
-### Worlds
+### Worlds ##################################################################
 # Route to create a new world
 @app.route('/worlds', methods=['POST'])
 def create_world():
@@ -133,6 +149,8 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.ERROR)
 
+
+# Parts of a World ###############################################################################################
 # Route to create a new map
 @app.route('/maps', methods=['POST'])
 def create_map():
@@ -190,3 +208,32 @@ def delete_map(map_id):
         return jsonify({'error': 'Map not found'}), 404
 
 
+# Flora ______________________________________________________________________________
+# Route to create a new flora
+@app.route('/flora', methods=['POST'])
+def create_flora():
+    try:
+        # Extract data from the request
+        data = request.json
+        name = data.get('name')
+        description = data.get('description')
+        image = data.get('image')
+        world_id = data.get('world_id')
+
+        # Check if all required fields are provided
+        if name and image and world_id:
+            # Create a new flora object
+            new_flora = Flora(name=name, description=description, image=image, world_id=world_id)
+
+            # Add the new flora to the database session
+            db.session.add(new_flora)
+            db.session.commit()
+
+            # Return the newly created flora as JSON response
+            return jsonify(new_flora.serialize()), 201
+        else:
+            # Return error response if any required field is missing
+            return jsonify({'error': 'Missing required fields'}), 400
+    except Exception as e:
+        # Return error response if an exception occurs during the process
+        return jsonify({'error': str(e)}), 500

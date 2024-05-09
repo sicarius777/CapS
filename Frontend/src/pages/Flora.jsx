@@ -1,5 +1,3 @@
-// Flora.jsx
-
 import React, { useState, useEffect } from 'react';
 import Nav from '../components/Nav';
 import './Flora.css'; // Import CSS file for Flora component styling

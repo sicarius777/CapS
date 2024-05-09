@@ -15,15 +15,24 @@ class User(db.Model):
         return{'id':self.id, 
             'username':self.username,
              'email':self.email}
-# world
+    
+
+# world ______________________________________________________________________________
 class World(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('worlds', lazy=True))
+    def serialize(self):
+        return {
+            'id': self.id, 
+            'title': self.title,
+            'description': self.description,
+            'user_id': self.user_id,
+            'user': self.user}
 
-# parts of a world
+# parts of a world #####################################################################################################
 class Inspiration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
@@ -50,8 +59,17 @@ class Flora(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
+    image = db.Column(db.String(255), nullable=False)
     world_id = db.Column(db.Integer, db.ForeignKey('world.id'), nullable=False)
     world = db.relationship('World', backref=db.backref('flora', lazy=True))
+    def serialize(self): 
+        return {
+            'id': self.id, 
+            'name': self.name,
+            'description': self.description,
+            'image': self.image,
+            'world_id': self.world_id,
+            'world': self.world}
 
 class Fauna(db.Model):
     id = db.Column(db.Integer, primary_key=True)

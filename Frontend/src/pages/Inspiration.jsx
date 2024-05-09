@@ -32,7 +32,7 @@ const InspirationPage = () => {
     };
 
     fetchRandomQuote();
-  }, []);
+    } , []);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -75,7 +75,7 @@ const InspirationPage = () => {
 
   return (
     <div>
-      <Nav /> {/* Include the Navbar component here */}
+      <Nav />
 
       <div className="inspiration-page" style={{ backgroundImage: `url(${backgroundImage})` }}>
         {/* Appendix N column */}
