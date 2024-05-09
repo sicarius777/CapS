@@ -10,7 +10,7 @@ const Flora = () => {
   // Function to fetch current user ID from the backend
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch('/api/current_user');
+      const response = await fetch('http://127.0.0.1:5000/api/current_user');
       if (response.ok) {
         const data = await response.json();
         setCurrentUser(data.user_id);
