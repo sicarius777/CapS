@@ -21,7 +21,6 @@ class World(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    notes = db.relationship('Note', backref='world', lazy=True)
     user = db.relationship('User', backref=db.backref('worlds', lazy=True))
 
 # parts of a world
@@ -34,8 +33,18 @@ class Inspiration(db.Model):
 class Map(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(255), nullable=False)  # Assuming the image file path will be stored
     world_id = db.Column(db.Integer, db.ForeignKey('world.id'), nullable=False)
     world = db.relationship('World', backref=db.backref('maps', lazy=True))
+    def serialize(self): 
+        return {
+            'id': self.id, 
+            'content': self.content,
+            'image': self.image,
+            'world_id': self.world_id,
+            'world': self.world}
+
+
 
 class Flora(db.Model):
     id = db.Column(db.Integer, primary_key=True)

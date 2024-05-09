@@ -52,7 +52,7 @@ const App = () => {
           {/* Add a route for the Notepad component */}
           <Route path="/notepad" element={<Notepad />} />
           {/* Redirect to /worlds if no other route matches */}
-          <Route path='*' element={<Navigate to="/worlds" replace />} />
+          <Route path='*' element={<Navigate to="/login" replace />} />
         </Routes>
     </Container>
   );

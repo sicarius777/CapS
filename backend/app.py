@@ -19,9 +19,9 @@ app.config['FLASK_DEBUG'] = os.getenv ('FLASK_DEBUG')
 db.init_app(app)
 migrate = Migrate(app, db)
 
-# Route to login
+# Change the endpoint function name from login to login_user
 @app.route('/api/login', methods=['POST'])
-def login():
+def login_user():
     data = request.json
     username = data.get('username')
     password = data.get('password')
@@ -78,23 +78,6 @@ def get_current_user():
     else:
         return jsonify({'error': 'User not authenticated'}), 401
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Route to create a new user
 @app.route('/users', methods=['POST'])
 def create_user():
@@ -110,6 +93,8 @@ def create_user():
     else:
         return jsonify({'error': 'Missing data'}), 400
 
+
+### Worlds
 # Route to create a new world
 @app.route('/worlds', methods=['POST'])
 def create_world():
@@ -137,19 +122,48 @@ def delete_world(world_id):
     else:
         return jsonify({'error': 'World not found'}), 404
 
+from flask import request, jsonify
+from app import app, db
+from models import Map
+
+from werkzeug.utils import secure_filename
+import os
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.ERROR)
+
 # Route to create a new map
 @app.route('/maps', methods=['POST'])
 def create_map():
-    data = request.json
-    content = data.get('content')
-    world_id = data.get('world_id')
-    if content and world_id:
-        new_map = Map(content=content, world_id=world_id)
+    try:
+        # Get data from the request
+        content = request.form.get('content')
+        world_id = request.form.get('world_id')
+        image_file = request.files.get('image')
+        
+        # Validate required fields
+        if not content or not world_id or not image_file:
+            return jsonify({'error': 'Missing required data'}), 400
+
+        # Save the image to the server
+        image_filename = secure_filename(image_file.filename)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+        image_file.save(image_path)
+
+        # Create a new map object
+        new_map = Map(content=content, world_id=world_id, image=image_filename)
+
+        # Add the map to the database
         db.session.add(new_map)
         db.session.commit()
+
         return jsonify(new_map.serialize()), 201
-    else:
-        return jsonify({'error': 'Missing data'}), 400
+    except Exception as e:
+        logging.error('Error creating new map: %s', e)
+        return jsonify({'error': 'Failed to create new map'}), 500
+
+
     
   # Route to update an existing map
 @app.route('/maps/<int:map_id>', methods=['PUT'])

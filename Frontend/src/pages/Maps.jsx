@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import Nav from '../components/Nav';
+import WorldGenerator from '../components/WorldGenerator';
 import './Maps.css'; // Import CSS file for styling
 
 const Maps = () => {
   const [mapDataList, setMapDataList] = useState([]);
   const [currentMapData, setCurrentMapData] = useState('');
   const [imageFile, setImageFile] = useState(null);
-  const [expandedImageIndex, setExpandedImageIndex] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [worldId, setWorldId] = useState('');
+
+  const handleGenerateWorldId = (newWorldId) => {
+    setWorldId(newWorldId); // Set the generated world_id in state
+  };
 
   const handleSaveButtonClick = async () => {
     try {
@@ -16,7 +21,7 @@ const Maps = () => {
         formData.append('content', currentMapData.trim());
         formData.append('image', imageFile);
 
-        const response = await fetch('/maps', {
+        const response = await fetch('http://127.0.0.1:5000/maps', {
           method: 'POST',
           body: formData,
         });
@@ -44,16 +49,6 @@ const Maps = () => {
     setImageFile(e.target.files[0]);
   };
 
-  // Handle page navigation warning
-  window.onbeforeunload = function () {
-    return 'Are you sure you want to leave? Your changes may not be saved.';
-  };
-
-  // Handle click on image to toggle expanded view
-  const handleImageClick = (index) => {
-    setExpandedImageIndex(index === expandedImageIndex ? null : index);
-  };
-
   return (
     <div className="map-page">
       {/* Include the Nav component */}
@@ -75,15 +70,12 @@ const Maps = () => {
             <h3>Map {index + 1}</h3>
             <p>{mapData.content}</p>
             {/* Display uploaded image */}
-            <img
-              src={mapData.image}
-              alt={`Map ${index + 1}`}
-              className={expandedImageIndex === index ? 'expanded' : ''}
-              onClick={() => handleImageClick(index)}
-            />
+            <img src={mapData.image} alt={`Map ${index + 1}`} />
           </div>
         ))}
       </div>
+      {/* Render the WorldGenerator component to generate a world_id */}
+      <WorldGenerator onGenerate={handleGenerateWorldId} />
     </div>
   );
 };

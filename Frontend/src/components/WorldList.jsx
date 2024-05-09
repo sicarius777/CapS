@@ -6,16 +6,20 @@ const WorldList = ({ worlds, onSelectWorld, onEditWorld, onDeleteWorld, style })
 
   const handleAddWorld = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
+  
     try {
-      const response = await fetch('/worlds', {
+      const response = await fetch('http://127.0.0.1:5000/worlds', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: newWorldName }) // Send the new world name in the request body
+        body: JSON.stringify({ 
+          title: newWorldName,
+          description: 'Your Description', // Add a default description or retrieve it from user input
+          user_id: 1 // Replace 1 with the actual user ID
+        }) 
       });
-
+  
       if (response.ok) {
         const newWorld = await response.json();
         console.log('New world created:', newWorld);
@@ -31,7 +35,7 @@ const WorldList = ({ worlds, onSelectWorld, onEditWorld, onDeleteWorld, style })
       // Optionally, handle the error or display a notification to the user
     }
   };
-
+  
   return (
     <div className="saved-worlds-wrapper" style={style}>
       <div className="saved-worlds-list">
